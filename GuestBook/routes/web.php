@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'CommentController@index')->name('comment.index');
+Route::get('/comment', 'CommentController@create')->name('comment.create');
+Route::post('/comment', 'CommentController@store')->name('comment.store');
+
+Route::get('welcome', function () {
     return view('welcome');
 });
