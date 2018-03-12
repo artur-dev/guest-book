@@ -9,10 +9,8 @@ class CommentController extends Controller
 {
     /**
      * Lists most recent comments from guest book.
-     *
-     * @param Request $request
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('comment.index', ['comments' => Entries::take(10)->get()]);
     }
@@ -29,8 +27,10 @@ class CommentController extends Controller
 
     /**
      * Stores new comment in database.
+     *
+     * @param Request $request
      */
-    public function store()
+    public function store(Request $request)
     {
 
     }
