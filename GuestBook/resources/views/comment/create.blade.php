@@ -1,4 +1,19 @@
+@if ($errors->any())
+    <div class="alert alert-title">
+        You have errors in the form!
+    </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 {!! Form::open(['route' => 'comment.store']) !!}
+
+{{ csrf_field() }}
 
 <div class="form-group">
     {!! Form::label('guest_name', 'Your Name') !!}

@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return view('comment.index', ['comments' => Entries::take(10)->get()]);
+        return view('comment.index', ['comments' => Entries::take(10)->orderBy('id', 'desc')->get()]);
     }
 
     /**
@@ -34,13 +34,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // automatically goes back on failure
-        $validated_data = $request->validate([
+        $v = \Validator::make($request->all(), [
             'guest_name' => 'required|max:255',
             'guest_email' => 'email|max:255',
             'comment' => 'required'
         ]);
 
-        Entries::create($validated_data);
+        if ($v->fails())
+        {
+            return redirect()->back()->withErrors($v->errors());
+        } else {
+            Entries::create($request->all());
+            
+            return redirect()->route('comment.index');
+        }
+
     }
 }
